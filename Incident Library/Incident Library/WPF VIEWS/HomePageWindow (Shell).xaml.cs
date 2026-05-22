@@ -1,25 +1,116 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Incident_Library.WPF_VIEWS
 {
-    /// <summary>
-    /// Interaction logic for HomePageWindow__Shell_.xaml
-    /// </summary>
     public partial class HomePageWindow__Shell_ : Window
     {
+        private Button? _activeNavButton;
+
         public HomePageWindow__Shell_()
         {
             InitializeComponent();
+            _activeNavButton = btnWorkInProgress;
+            txtPageTitle.Text = "Work In Progress";
+        }
+
+        // Navigation
+
+        private void NavButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is not Button btn) return;
+
+            string tag = btn.Tag?.ToString() ?? "";
+
+            if (_activeNavButton != null)
+                _activeNavButton.Style = (Style)FindResource("NavButton");
+
+            btn.Style = (Style)FindResource("NavButtonActive");
+            _activeNavButton = btn;
+
+            string pageTitle = btn.Content?.ToString() ?? tag;
+            txtPageTitle.Text = pageTitle;
+            txtStatus.Text = $"Navigated to: {pageTitle}";
+
+            // TODO: Navigate ContentArea to matching sub-view Page
+            // Example: ContentArea.Navigate(new SubViews.WorkInProgressPage());
+        }
+
+        // Toolbar
+
+        private void BtnNewIncident_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO: open EditIncidentReport window
+            // var editWindow = new SUB_VIEWS.EditIncidentReportWindow();
+            // editWindow.Owner = this;
+            // editWindow.ShowDialog();
+        }
+
+        private void BtnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO: pass selected incident to edit window
+        }
+
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show(
+                "Are you sure you want to delete this incident?",
+                "Confirm Delete",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                // TODO: call IncidentRepository.DeleteAsync(selectedId)
+                txtStatus.Text = "Incident deleted.";
+            }
+        }
+
+        private void BtnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            RunSearch();
+        }
+
+        private void TxtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
+        }
+
+        private void RunSearch()
+        {
+            string query = txtSearch.Text.Trim();
+            if (string.IsNullOrEmpty(query)) return;
+            txtStatus.Text = $"Searching for: \"{query}\"...";
+            // TODO: call IncidentExplorerViewModel.SearchAsync(query)
+        }
+
+        private void BtnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show(
+                "Are you sure you want to log out?",
+                "Log Out",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                var login = new LoginWindow();
+                login.Show();
+                this.Close();
+            }
+        }
+
+        // Helpers callable from sub-views 
+
+        public void SetIncidentSelected(bool isSelected)
+        {
+            btnEdit.IsEnabled = isSelected;
+            btnDelete.IsEnabled = isSelected;
+        }
+
+        public void SetIncidentCount(int count)
+        {
+            txtIncidentCount.Text = $"Incidents: {count}";
         }
     }
 }

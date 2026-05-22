@@ -5,8 +5,145 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Incident_Library.WPF_VIEWS"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="450" Width="800">
+        Title="Incident Library - Login"
+        Height="320" Width="400"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="#F0F0F0"
+        FontFamily="Segoe UI"
+        FontSize="13">
+
+    <Window.Resources>
+        <Style x:Key="ClassicButton" TargetType="Button">
+            <Setter Property="Background" Value="#E1E1E1"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="#ADADAD"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="20,4"/>
+            <Setter Property="MinWidth" Value="80"/>
+            <Setter Property="Height" Value="26"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#E5F3FF"/>
+                                <Setter Property="BorderBrush" Value="#0078D7"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#CCE4F7"/>
+                                <Setter Property="BorderBrush" Value="#005499"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ClassicTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#7A7A7A"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="4,3"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+
+        <Style x:Key="ClassicPasswordBox" TargetType="PasswordBox">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#7A7A7A"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="4,3"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+    </Window.Resources>
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#F0F0F0"
+                BorderBrush="#ADADAD" BorderThickness="0,0,0,1">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0">
+                <TextBlock Text="📋" FontSize="20" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="Incident Library" FontSize="14" FontWeight="SemiBold"/>
+                    <TextBlock Text="Please sign in to continue" FontSize="11" Foreground="#555"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Login form -->
+        <Grid Grid.Row="1" Margin="30,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="8"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="14"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="8"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Username:" FontSize="13"/>
+            <TextBox Grid.Row="2"
+                     x:Name="txtUsername"
+                     Style="{StaticResource ClassicTextBox}"
+                     TabIndex="0"/>
+
+            <TextBlock Grid.Row="4" Text="Password:" FontSize="13"/>
+            <PasswordBox Grid.Row="6"
+                         x:Name="pwdPassword"
+                         Style="{StaticResource ClassicPasswordBox}"
+                         TabIndex="1"
+                         KeyDown="PasswordBox_KeyDown"/>
+
+            <TextBlock Grid.Row="7"
+                       x:Name="txtError"
+                       Foreground="Red"
+                       FontSize="11"
+                       Margin="0,6,0,0"
+                       Visibility="Collapsed"
+                       Text="Invalid username or password."/>
+        </Grid>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" Background="#F0F0F0"
+                BorderBrush="#ADADAD" BorderThickness="0,1,0,0">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="16,0">
+                <Button x:Name="btnLogin"
+                        Content="Log In"
+                        Style="{StaticResource ClassicButton}"
+                        IsDefault="True"
+                        Click="BtnLogin_Click"
+                        Margin="0,0,8,0"/>
+                <Button x:Name="btnCancel"
+                        Content="Cancel"
+                        Style="{StaticResource ClassicButton}"
+                        IsCancel="True"
+                        Click="BtnCancel_Click"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

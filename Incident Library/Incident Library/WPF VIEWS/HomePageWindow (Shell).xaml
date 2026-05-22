@@ -5,8 +5,285 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Incident_Library.WPF_VIEWS"
         mc:Ignorable="d"
-        Title="HomePageWindow__Shell_" Height="450" Width="800">
+        Title="Incident Library"
+        Height="620" Width="900"
+        WindowStartupLocation="CenterScreen"
+        Background="#F0F0F0"
+        FontFamily="Segoe UI"
+        FontSize="13">
+
+    <Window.Resources>
+
+        <Style x:Key="NavButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#CCE4F7"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="NavButtonActive" TargetType="Button">
+            <Setter Property="Background" Value="#0078D7"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#005A9E"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ClassicButton" TargetType="Button">
+            <Setter Property="Background" Value="#E1E1E1"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="#ADADAD"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="14,3"/>
+            <Setter Property="Height" Value="26"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#E5F3FF"/>
+                                <Setter Property="BorderBrush" Value="#0078D7"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#CCE4F7"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#ADADAD"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="36"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="24"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- TITLE BAR -->
+        <Border Grid.Row="0" Grid.ColumnSpan="2"
+                Background="#F0F0F0"
+                BorderBrush="#ADADAD" BorderThickness="0,0,0,1">
+            <DockPanel Margin="10,0">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="📋" FontSize="18" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <TextBlock Text="Incident Library" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                            VerticalAlignment="Center" DockPanel.Dock="Right">
+                    <TextBlock x:Name="txtCurrentUser"
+                               Text="Logged in as: admin"
+                               FontSize="11" Foreground="#555"
+                               VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <Button Content="Log Out"
+                            Style="{StaticResource ClassicButton}"
+                            Click="BtnLogout_Click"
+                            Padding="10,3"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- TOOLBAR -->
+        <Border Grid.Row="1" Grid.ColumnSpan="2"
+                Background="#F5F5F5"
+                BorderBrush="#ADADAD" BorderThickness="0,0,0,1">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="8,0">
+                <Button Content="+ New Incident"
+                        Style="{StaticResource ClassicButton}"
+                        Click="BtnNewIncident_Click"
+                        Margin="0,0,4,0"/>
+                <Button x:Name="btnEdit"
+                        Content="Edit"
+                        Style="{StaticResource ClassicButton}"
+                        Click="BtnEdit_Click"
+                        IsEnabled="False"
+                        Margin="0,0,4,0"/>
+                <Button x:Name="btnDelete"
+                        Content="Delete"
+                        Style="{StaticResource ClassicButton}"
+                        Click="BtnDelete_Click"
+                        IsEnabled="False"
+                        Margin="0,0,8,0"/>
+                <Border BorderBrush="#7A7A7A" BorderThickness="1" Background="White"
+                        Height="22" VerticalAlignment="Center">
+                    <TextBox x:Name="txtSearch"
+                             Width="200" Height="22"
+                             BorderThickness="0"
+                             Background="White"
+                             Padding="4,2"
+                             FontSize="12"
+                             VerticalAlignment="Center"
+                             TextChanged="TxtSearch_TextChanged"/>
+                </Border>
+                <Button Content="Search"
+                        Style="{StaticResource ClassicButton}"
+                        Click="BtnSearch_Click"
+                        Margin="4,0,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- NAVIGATION SIDEBAR -->
+        <Border Grid.Row="2" Grid.Column="0"
+                Background="#F0F0F0"
+                BorderBrush="#ADADAD" BorderThickness="0,0,1,0">
+            <DockPanel>
+                <Border DockPanel.Dock="Top"
+                        Background="#E1E1E1"
+                        BorderBrush="#ADADAD" BorderThickness="0,0,0,1"
+                        Padding="12,5">
+                    <TextBlock Text="NAVIGATION" FontSize="10" FontWeight="Bold" Foreground="#555"/>
+                </Border>
+
+                <StackPanel DockPanel.Dock="Top" Margin="0,4">
+                    <TextBlock Text="Incidents" FontSize="10" FontWeight="SemiBold"
+                               Foreground="#888" Margin="12,6,0,3"/>
+
+                    <Button x:Name="btnWorkInProgress"
+                            Content="Work In Progress"
+                            Style="{StaticResource NavButtonActive}"
+                            Tag="WorkInProgress"
+                            Click="NavButton_Click"/>
+
+                    <Button x:Name="btnUnderReview"
+                            Content="Under Review"
+                            Style="{StaticResource NavButton}"
+                            Tag="UnderReview"
+                            Click="NavButton_Click"/>
+
+                    <Button x:Name="btnAwaiting"
+                            Content="Awaiting Approval"
+                            Style="{StaticResource NavButton}"
+                            Tag="AwaitingApproval"
+                            Click="NavButton_Click"/>
+
+                    <Button x:Name="btnArchived"
+                            Content="Archived"
+                            Style="{StaticResource NavButton}"
+                            Tag="Archived"
+                            Click="NavButton_Click"/>
+
+                    <Separator Margin="8,6"/>
+
+                    <TextBlock Text="Admin" FontSize="10" FontWeight="SemiBold"
+                               Foreground="#888" Margin="12,0,0,3"/>
+
+                    <Button x:Name="btnAdmin"
+                            Content="Admin Panel"
+                            Style="{StaticResource NavButton}"
+                            Tag="Admin"
+                            Click="NavButton_Click"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- CONTENT AREA -->
+        <Border Grid.Row="2" Grid.Column="1" Background="White">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0"
+                        Background="#F5F5F5"
+                        BorderBrush="#ADADAD" BorderThickness="0,0,0,1">
+                    <TextBlock x:Name="txtPageTitle"
+                               Text="Work In Progress"
+                               FontSize="13" FontWeight="SemiBold"
+                               VerticalAlignment="Center" Margin="12,0"/>
+                </Border>
+
+                <Frame x:Name="ContentArea"
+                       Grid.Row="1"
+                       NavigationUIVisibility="Hidden"
+                       Background="White"/>
+            </Grid>
+        </Border>
+
+        <!-- STATUS BAR -->
+        <Border Grid.Row="3" Grid.ColumnSpan="2"
+                Background="#F0F0F0"
+                BorderBrush="#ADADAD" BorderThickness="0,1,0,0">
+            <DockPanel Margin="8,0">
+                <TextBlock x:Name="txtStatus"
+                           Text="Ready"
+                           FontSize="11" Foreground="#555"
+                           VerticalAlignment="Center"/>
+                <TextBlock x:Name="txtIncidentCount"
+                           Text="Incidents: 0"
+                           FontSize="11" Foreground="#555"
+                           HorizontalAlignment="Right"
+                           DockPanel.Dock="Right"
+                           VerticalAlignment="Center"/>
+            </DockPanel>
+        </Border>
+
     </Grid>
 </Window>
