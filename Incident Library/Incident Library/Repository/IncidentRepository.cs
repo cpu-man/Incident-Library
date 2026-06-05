@@ -9,7 +9,7 @@ namespace Incident_Library.Repository
 {
     public class IncidentRepository
     {
-        public List<IncidentReport> Read()
+        public List<IncidentReport> Read() //Læser fra databasen og sætter den ind i en liste
         {
             var incidentList = new List<IncidentReport>();
             using var conncetion = new SqliteConnection("Data Source=IncidentLibrary.db;");
@@ -29,6 +29,47 @@ namespace Incident_Library.Repository
                 incidentList.Add(i);
             }
             return incidentList;
+        }
+
+        public void Create (IncidentReport i) //Opretter nyt incident til databasen; bemærk at vi siger Close her fordi vi ikke bruger 'using var' (tilføjede bare for at vise at vi kunne)
+        {
+            SqliteConnection connection = new SqliteConnection("Data Source=IncidentLibrary.db;");
+            connection.Open();
+
+            SqliteCommand command = new SqliteCommand("INSERT INTO Incident (Title, HowDiscovered, WhatIsIncident, HowResolved, StatusID) VALUES (@Title, @HowDiscovered, @WhatIsIncident, @HowResolved, @StatusID)", connection);
+            command.Parameters.AddWithValue("@Title", i.Title);
+            command.Parameters.AddWithValue("@HowDiscovered", i.HowDiscovered);
+            command.Parameters.AddWithValue("@WhatIsIncident", i.WhatIsIncident);
+            command.Parameters.AddWithValue("@HowResolved", i.HowResolved);
+            command.Parameters.AddWithValue("@StatusID", i.Status);
+
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
+        public void Delete(IncidentReport i) //Sletter incident fra databasen
+        {
+            using var connection = new SqliteConnection("Data Source=IncidentLibrary.db;");
+            connection.Open();
+            using var command = connection.CreateCommand();
+            command.CommandText = "DELETE FROM Incident WHERE IncidentID = @id";
+            command.Parameters.AddWithValue("@id", i.Id);
+            command.ExecuteNonQuery();
+        }
+
+        public void Update(IncidentReport i) //Opdaterer databasen
+        {
+            using var connection = new SqliteConnection("Data Source=IncidentLibrary.db;");
+            connection.Open();
+            using var command = new SqliteCommand("UPDATE Incident SET Title = @Title, HowDiscovered = @HowDiscovered, WhatIsIncident = @WhatIsIncident, HowResolved = @HowResolved, StatusID = @StatusID WHERE IncidentID = @id", connection);
+            command.Parameters.AddWithValue("@Title", i.Title);
+            command.Parameters.AddWithValue("@HowDiscovered", i.HowDiscovered);
+            command.Parameters.AddWithValue("@WhatIsIncident", i.WhatIsIncident);
+            command.Parameters.AddWithValue("@HowResolved", i.HowResolved);
+            command.Parameters.AddWithValue("@StatusID", i.Status);
+            command.Parameters.AddWithValue("@id", i.Id);
+            
+            command.ExecuteNonQuery();
         }
     }
 }
