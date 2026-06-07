@@ -10,6 +10,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="IncidentLibrary.db" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="IncidentLibrary.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="INTERFACES &amp; REPO\" />
   </ItemGroup>
 

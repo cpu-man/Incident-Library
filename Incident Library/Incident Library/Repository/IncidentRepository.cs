@@ -9,10 +9,17 @@ namespace Incident_Library.Repository
 {
     public class IncidentRepository
     {
+
+        //private static string GetConnectionString()
+        //{
+        //    string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+        //    string dbPath = Path.Combine(baseDir, "IncidentLibrary.db");
+        //    return $"Data Source={dbPath};";
+        //}
         public List<IncidentReport> Read() //Læser fra databasen og sætter den ind i en liste
         {
             var incidentList = new List<IncidentReport>();
-            using var conncetion = new SqliteConnection("Data Source=IncidentLibrary.db;");
+            using var conncetion = new SqliteConnection("Data Source = IncidentLibrary.db;");
             conncetion.Open();
             using var command = new SqliteCommand("SELECT * FROM Incident", conncetion);
             using var reader = command.ExecuteReader();

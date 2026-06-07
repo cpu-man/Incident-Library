@@ -25,9 +25,8 @@
                     <ColumnDefinition Width="110"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="Title"       FontWeight="SemiBold" FontSize="12"/>
-                <TextBlock Grid.Column="1" Text="Labels"      FontWeight="SemiBold" FontSize="12"/>
-                <TextBlock Grid.Column="2" Text="Created"     FontWeight="SemiBold" FontSize="12"/>
-                <TextBlock Grid.Column="3" Text="Created By"  FontWeight="SemiBold" FontSize="12"/>
+                <TextBlock Grid.Column="1" Text="WhatIsIncident"      FontWeight="SemiBold" FontSize="12"/>
+                <TextBlock Grid.Column="2" Text="HowDiscovered"      FontWeight="SemiBold" FontSize="12"/>
             </Grid>
         </Border>
 
