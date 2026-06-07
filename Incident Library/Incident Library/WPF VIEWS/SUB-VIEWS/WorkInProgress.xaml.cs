@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Incident_Library.Repository;
+using Incident_Library.VIEWMODELS_LOGIC_;
 
 namespace Incident_Library.WPF_VIEWS.SUB_VIEWS
 {
@@ -28,8 +29,8 @@ namespace Incident_Library.WPF_VIEWS.SUB_VIEWS
 
         private void LoadIncidents()
         {
-            var repo = new IncidentRepository();
-            var incidents = repo.Read().Where(i => i.Status == 1).ToList();
+            var viewModel = new IncidentExplorerViewModel();
+            var incidents = viewModel.GetByStatus(1);
 
             if (incidents.Count == 0)
             {

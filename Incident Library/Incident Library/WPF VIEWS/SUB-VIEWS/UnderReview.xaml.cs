@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using Incident_Library.MODELS__Data_;
+using Incident_Library.VIEWMODELS_LOGIC_;
+using System.Windows.Controls;
 
 namespace Incident_Library.WPF_VIEWS.SUB_VIEWS
 {
@@ -7,8 +9,25 @@ namespace Incident_Library.WPF_VIEWS.SUB_VIEWS
         public UnderReview()
         {
             InitializeComponent();
+            LoadIncidents();
             // TODO: DataContext = new IncidentExplorerViewModel();
-            // await ViewModel.LoadIncidentsByStatusAsync(2); // 2 = Under Review
+            // await ViewModel.LoadIncidentsByStatusAsync(2); // 2 = Under Review     
         }
+
+       private void LoadIncidents()
+        {
+            var viewModel = new IncidentExplorerViewModel();
+            var incidents = viewModel.GetByStatus(2);
+
+            if (incidents.Count == 0)
+            {
+                txtEmpty.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                IncidentList.ItemsSource = incidents;
+            }
+        }
+
     }
 }
