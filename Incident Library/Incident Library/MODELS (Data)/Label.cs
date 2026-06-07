@@ -5,6 +5,6 @@ using System.Text;
 namespace Incident_Library.MODELS__Data_
 {
     class Label
-    {
+    {   
     }
 }
