@@ -38,10 +38,10 @@ namespace Incident_Library.Repository
             return incidentList;
         }
 
-        public void Create (IncidentReport i) //Opretter nyt incident til databasen; bemærk at vi siger Close her fordi vi ikke bruger 'using var' (tilføjede bare for at vise at vi kunne)
+        public async Task CreateAsync (IncidentReport i) //Opretter nyt incident til databasen; bemærk at vi siger Close her fordi vi ikke bruger 'using var' (tilføjede bare for at vise at vi kunne)
         {
             SqliteConnection connection = new SqliteConnection("Data Source=IncidentLibrary.db;");
-            connection.Open();
+            await connection.OpenAsync();
 
             SqliteCommand command = new SqliteCommand("INSERT INTO Incident (Title, HowDiscovered, WhatIsIncident, HowResolved, StatusID) VALUES (@Title, @HowDiscovered, @WhatIsIncident, @HowResolved, @StatusID)", connection);
             command.Parameters.AddWithValue("@Title", i.Title);
@@ -50,8 +50,8 @@ namespace Incident_Library.Repository
             command.Parameters.AddWithValue("@HowResolved", i.HowResolved);
             command.Parameters.AddWithValue("@StatusID", i.Status);
 
-            command.ExecuteNonQuery();
-            connection.Close();
+           await command.ExecuteNonQueryAsync();
+            await connection.CloseAsync();
         }
 
         public void Delete(IncidentReport i) //Sletter incident fra databasen
