@@ -16,14 +16,14 @@ namespace Incident_Library.Repository
         //    string dbPath = Path.Combine(baseDir, "IncidentLibrary.db");
         //    return $"Data Source={dbPath};";
         //}
-        public List<IncidentReport> Read() //Læser fra databasen og sætter den ind i en liste
+        public async Task<List<IncidentReport>> ReadAsync() //Læser fra databasen og sætter den ind i en liste
         {
             var incidentList = new List<IncidentReport>();
             using var conncetion = new SqliteConnection("Data Source = IncidentLibrary.db;");
-            conncetion.Open();
+            await conncetion.OpenAsync();
             using var command = new SqliteCommand("SELECT * FROM Incident", conncetion);
-            using var reader = command.ExecuteReader();
-            while (reader.Read())
+            using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
             {
                 IncidentReport i = new IncidentReport();
                 i.Id = Convert.ToInt32(reader["IncidentID"]);

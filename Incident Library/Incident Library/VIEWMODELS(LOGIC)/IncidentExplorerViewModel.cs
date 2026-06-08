@@ -11,9 +11,10 @@ namespace Incident_Library.VIEWMODELS_LOGIC_
     {
         private readonly IncidentRepository _repo = new IncidentRepository();
 
-        public List<IncidentReport> GetByStatus(int statusId)
+        public async Task<List<IncidentReport>> GetByStatusAsync(int statusId)
         {
-            return _repo.Read().Where(i => i.Status == statusId).ToList();
+            var all = await _repo.ReadAsync();
+            return all.Where(i => i.Status == statusId).ToList();
         }
     }
 }
