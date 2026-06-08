@@ -16,7 +16,7 @@ namespace Incident_Library.WPF_VIEWS.SUB_VIEWS
 
        private void LoadIncidents()
         {
-            var viewModel = new IncidentExplorerViewModel();
+            var viewModel = new IncidentViewModel();
             var incidents = viewModel.GetByStatus(2);
 
             if (incidents.Count == 0)

@@ -7,7 +7,7 @@ using Incident_Library.MODELS__Data_;
 
 namespace Incident_Library.VIEWMODELS_LOGIC_
 {
-   class IncidentExplorerViewModel
+   class IncidentViewModel
     {
         private readonly IncidentRepository _repo = new IncidentRepository();
 
