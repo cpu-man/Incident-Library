@@ -1,4 +1,5 @@
-﻿using Incident_Library.VIEWMODELS_LOGIC_;
+﻿using Incident_Library.MODELS__Data_;
+using Incident_Library.VIEWMODELS_LOGIC_;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -23,7 +24,7 @@ namespace Incident_Library.WPF_VIEWS.SUB_VIEWS
         private void BtnEditIncident_Click(object sender, RoutedEventArgs e)
         {
             var btn = sender as Button;
-            var incident = btn.Tag as EditIncidentReport;
+            var incident = btn.Tag as IncidentReport;
 
             var editPage = new EditIncidentReport(incident);
             NavigationService.Navigate(editPage);

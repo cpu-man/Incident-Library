@@ -19,7 +19,14 @@ namespace Incident_Library.VIEWMODELS_LOGIC_
 
         public async Task SaveAsync()
         {
-            await _repo.UpdateAsync(Incident);
+            if (Incident.Id == 0)
+            {
+                await _repo.CreateAsync(Incident);
+            }
+            else
+            {
+                await _repo.UpdateAsync(Incident);
+            }
         }
 
         public async Task DeleteAsync()

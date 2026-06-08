@@ -79,6 +79,7 @@ namespace Incident_Library.WPF_VIEWS.SUB_VIEWS
             _vm.Incident.HowDiscovered = txtHowDiscovered.Text;
             _vm.Incident.WhatIsIncident = txtWhatIsIncident.Text;
             _vm.Incident.HowResolved = txtHowResolved.Text;
+            _vm.Incident.Status = cmbStatus.SelectedIndex + 1;
 
             await _vm.SaveAsync();
 
