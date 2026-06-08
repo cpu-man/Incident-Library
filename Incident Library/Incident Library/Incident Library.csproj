@@ -10,6 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="INTERFACES &amp; REPO\**" />
+    <EmbeddedResource Remove="INTERFACES &amp; REPO\**" />
+    <None Remove="INTERFACES &amp; REPO\**" />
+    <Page Remove="INTERFACES &amp; REPO\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="IncidentLibrary.db" />
   </ItemGroup>
 
@@ -17,10 +24,6 @@
     <Content Include="IncidentLibrary.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="INTERFACES &amp; REPO\" />
   </ItemGroup>
 
   <ItemGroup>
