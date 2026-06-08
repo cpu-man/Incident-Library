@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Incident_Library.MODELS__Data_.INTERFACES
+namespace Incident_Library.INTERFACES
 {
-    public interface ISortStrategy
+    internal interface ISortStrategy
     {
     }
 }

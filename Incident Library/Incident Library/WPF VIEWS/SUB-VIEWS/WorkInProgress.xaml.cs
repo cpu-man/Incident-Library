@@ -9,17 +9,37 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Incident_Library.Repository;
+using Incident_Library.VIEWMODELS_LOGIC_;
 
 namespace Incident_Library.WPF_VIEWS.SUB_VIEWS
 {
     /// <summary>
     /// Interaction logic for WorkInProgress.xaml
     /// </summary>
-    public partial class WorkInProgress : Window
+    public partial class WorkInProgress : Page 
     {
         public WorkInProgress()
         {
             InitializeComponent();
+            LoadIncidents();
+            // TODO: DataContext = new IncidentExplorerViewModel();
+            // await ViewModel.LoadIncidentsByStatusAsync(1); // 1 = Work In Progress
+        }
+
+        private void LoadIncidents()
+        {
+            var viewModel = new IncidentExplorerViewModel();
+            var incidents = viewModel.GetByStatus(1);
+
+            if (incidents.Count == 0)
+            {
+                txtEmpty.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                IncidentList.ItemsSource = incidents;
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Incident_Library.WPF_VIEWS
             InitializeComponent();
             _activeNavButton = btnWorkInProgress;
             txtPageTitle.Text = "Work In Progress";
+            ContentArea.Navigate(new Incident_Library.WPF_VIEWS.SUB_VIEWS.WorkInProgress());
         }
 
         // Navigation
@@ -32,19 +33,31 @@ namespace Incident_Library.WPF_VIEWS
             txtPageTitle.Text = pageTitle;
             txtStatus.Text = $"Navigated to: {pageTitle}";
 
-            // TODO: Navigate ContentArea to matching sub-view Page
-            // Example: ContentArea.Navigate(new SubViews.WorkInProgressPage());
+            switch (tag)
+            {
+                case "WorkInProgress":
+                    ContentArea.Navigate(new Incident_Library.WPF_VIEWS.SUB_VIEWS.WorkInProgress());
+                    break;
+                case "UnderReview":
+                    ContentArea.Navigate(new Incident_Library.WPF_VIEWS.SUB_VIEWS.UnderReview());
+                    break;
+                case "AwaitingApproval":
+                    ContentArea.Navigate(new Incident_Library.WPF_VIEWS.SUB_VIEWS.AwaitingApproval());
+                    break;
+                case "Archived":
+                    ContentArea.Navigate(new Incident_Library.WPF_VIEWS.SUB_VIEWS.Archived());
+                    break;
+                case "Admin":
+                    ContentArea.Navigate(new Incident_Library.WPF_VIEWS.SUB_VIEWS.AdminView());
+                    break;
+            }
         }
 
-        // Toolbar
-
-        private void BtnNewIncident_Click(object sender, RoutedEventArgs e)
+            private void BtnNewIncident_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: open EditIncidentReport window
-            // var editWindow = new SUB_VIEWS.EditIncidentReportWindow();
-            // editWindow.Owner = this;
-            // editWindow.ShowDialog();
+            ContentArea.Navigate(new Incident_Library.WPF_VIEWS.SUB_VIEWS.EditIncidentReport());
         }
+        
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {

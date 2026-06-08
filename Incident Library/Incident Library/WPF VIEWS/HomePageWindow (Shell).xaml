@@ -266,6 +266,8 @@
                        Background="White"/>
             </Grid>
         </Border>
+        
+        
 
         <!-- STATUS BAR -->
         <Border Grid.Row="3" Grid.ColumnSpan="2"

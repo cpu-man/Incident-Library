@@ -1,25 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using Incident_Library.VIEWMODELS_LOGIC_;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Incident_Library.WPF_VIEWS.SUB_VIEWS
 {
-    /// <summary>
-    /// Interaction logic for Archived.xaml
-    /// </summary>
-    public partial class Archived : Window
+    public partial class Archived : Page
     {
         public Archived()
         {
             InitializeComponent();
+            LoadIncidents();
+            // TODO: DataContext = new IncidentExplorerViewModel();
+            // await ViewModel.LoadIncidentsByStatusAsync(3); // 3 = Archived
+        }
+
+        private void LoadIncidents()
+        {
+            var viewModel = new IncidentExplorerViewModel();
+            var incidents = viewModel.GetByStatus(3);
+
+            if (incidents.Count == 0)
+            {
+                txtEmpty.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                IncidentList.ItemsSource = incidents;
+            }
         }
     }
 }
