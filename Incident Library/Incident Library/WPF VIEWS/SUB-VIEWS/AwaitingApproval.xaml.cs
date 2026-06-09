@@ -19,6 +19,7 @@ namespace Incident_Library.WPF_VIEWS.SUB_VIEWS
         private async System.Threading.Tasks.Task LoadIncidentsAsync()
         {
             List<IncidentReport> incidents = await _vm.GetByStatusAsync(4);
+
             if (incidents.Count == 0)
             {
                 txtEmpty.Visibility = Visibility.Visible;
@@ -32,6 +33,18 @@ namespace Incident_Library.WPF_VIEWS.SUB_VIEWS
             }
         }
 
+        // Disse manglede! XAML'en leder efter dem.
+        private void BtnApprove_Click(object sender, RoutedEventArgs e)
+        {
+            // Her skal logikken til at godkende (rykke til Archived) være
+        }
+
+        private void BtnReject_Click(object sender, RoutedEventArgs e)
+        {
+            // Her skal logikken til at afvise (rykke tilbage til WIP) være
+        }
+
+        // Din kode til at åbne Edit-vinduet når man klikker på rækken
         private void IncidentList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (IncidentList.SelectedItem is IncidentReport selected)
