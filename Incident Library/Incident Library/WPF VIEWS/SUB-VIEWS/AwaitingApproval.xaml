@@ -21,12 +21,10 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="130"/>
-                    <ColumnDefinition Width="80"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="Title"          FontWeight="SemiBold" FontSize="12"/>
                 <TextBlock Grid.Column="1" Text="What is it?"    FontWeight="SemiBold" FontSize="12"/>
                 <TextBlock Grid.Column="2" Text="How Discovered" FontWeight="SemiBold" FontSize="12"/>
-                <TextBlock Grid.Column="3" Text="Action"         FontWeight="SemiBold" FontSize="12"/>
             </Grid>
         </Border>
 
@@ -58,47 +56,19 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="200"/>
                                 <ColumnDefinition Width="130"/>
-                                <ColumnDefinition Width="80"/>
                             </Grid.ColumnDefinitions>
-
                             <TextBlock Grid.Column="0" Text="{Binding Title}"
                                        FontWeight="SemiBold"
                                        TextTrimming="CharacterEllipsis"
                                        VerticalAlignment="Center"/>
-
                             <TextBlock Grid.Column="1" Text="{Binding WhatIsIncident}"
                                        FontSize="12" Foreground="#555"
                                        TextTrimming="CharacterEllipsis"
                                        VerticalAlignment="Center"/>
-
                             <TextBlock Grid.Column="2" Text="{Binding HowDiscovered}"
                                        FontSize="12" Foreground="#555"
                                        TextTrimming="CharacterEllipsis"
                                        VerticalAlignment="Center"/>
-
-                            <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center">
-                                <Button Content="✓"
-                                        Tag="{Binding Id}"
-                                        Click="BtnApprove_Click"
-                                        Width="28" Height="22"
-                                        FontSize="12"
-                                        Background="#E1E1E1"
-                                        BorderBrush="#ADADAD"
-                                        BorderThickness="1"
-                                        Cursor="Hand"
-                                        Margin="0,0,4,0"
-                                        ToolTip="Approve"/>
-                                <Button Content="✕"
-                                        Tag="{Binding Id}"
-                                        Click="BtnReject_Click"
-                                        Width="28" Height="22"
-                                        FontSize="12"
-                                        Background="#E1E1E1"
-                                        BorderBrush="#ADADAD"
-                                        BorderThickness="1"
-                                        Cursor="Hand"
-                                        ToolTip="Reject"/>
-                            </StackPanel>
                         </Grid>
                     </Border>
                 </DataTemplate>
